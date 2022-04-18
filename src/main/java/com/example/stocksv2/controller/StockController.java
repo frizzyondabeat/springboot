@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,8 @@ public class StockController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Stock>> getAllStocks(Pageable page){
+    public ResponseEntity<Page<Stock>> getAllStocks(
+            @PageableDefault (sort = "id", direction = Sort.Direction.ASC, size = 3) Pageable page){
             Page<Stock> stockList = stockServiceImplementation.getAllStocks(page);
             return new ResponseEntity<>(stockList, HttpStatus.OK);
     }
