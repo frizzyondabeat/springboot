@@ -1,12 +1,14 @@
 package com.example.stocksv2.controller;
 
+import com.example.stocksv2.dto.StockDTO;
 import com.example.stocksv2.exceptions.ApiBadRequestException;
 import com.example.stocksv2.exceptions.ApiNotFoundException;
 import com.example.stocksv2.model.Stock;
-import com.example.stocksv2.dto.StockDTO;
 import com.example.stocksv2.service.StockServiceImplementation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +29,8 @@ public class StockController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Stock>> getAllStocks(){
-            List<Stock> stockList = stockServiceImplementation.getAllStocks();
+    public ResponseEntity<Page<Stock>> getAllStocks(Pageable page){
+            Page<Stock> stockList = stockServiceImplementation.getAllStocks(page);
             return new ResponseEntity<>(stockList, HttpStatus.OK);
     }
 

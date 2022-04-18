@@ -1,12 +1,14 @@
 package com.example.stocksv2.service;
 
+import com.example.stocksv2.dto.StockDTO;
 import com.example.stocksv2.exceptions.ApiBadRequestException;
 import com.example.stocksv2.exceptions.ApiNotFoundException;
 import com.example.stocksv2.model.Stock;
-import com.example.stocksv2.dto.StockDTO;
 import com.example.stocksv2.repository.StockRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,8 +29,8 @@ public class StockServiceImplementation implements StockService{
     }
 
     @Override
-    public List<Stock> getAllStocks() {
-        return stockRepository.findAll();
+    public Page<Stock> getAllStocks(Pageable page) {
+        return stockRepository.findAll(page);
     }
 
     @Override

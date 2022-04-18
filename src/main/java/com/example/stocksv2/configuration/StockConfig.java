@@ -28,7 +28,25 @@ public class StockConfig {
                     Timestamp.valueOf(LocalDateTime.now())
             );
 
-            stockRepository.saveAll(List.of(stock1,stock2));
+            Stock stock3 = new Stock(
+                    "BNB",
+                    167_210.69,
+                    Timestamp.valueOf(LocalDateTime.now())
+            );
+
+            Stock stock4 = new Stock(
+                    "ZRX",
+                    277.48,
+                    Timestamp.valueOf(LocalDateTime.now())
+            );
+
+            Stock stock5 = new Stock(
+                    "TRX",
+                    24.75,
+                    Timestamp.valueOf(LocalDateTime.now())
+            );
+
+            stockRepository.saveAll(List.of(stock1,stock2,stock3,stock4,stock5));
         };
     }
 }
