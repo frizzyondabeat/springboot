@@ -33,8 +33,13 @@ public class StockController {
     @GetMapping
     public ResponseEntity<Page<Stock>> getAllStocks(
             @PageableDefault (sort = "id", direction = Sort.Direction.ASC, size = 3) Pageable page){
-            Page<Stock> stockList = stockServiceImplementation.getAllStocks(page);
-            return new ResponseEntity<>(stockList, HttpStatus.OK);
+            try {
+                Page<Stock> stockList = stockServiceImplementation.getAllStocks(page);
+                return new ResponseEntity<>(stockList, HttpStatus.OK);
+            } catch (Exception exception){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
     }
 
     @GetMapping(path = "{id}")
