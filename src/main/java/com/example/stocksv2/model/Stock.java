@@ -37,7 +37,8 @@ public class Stock {
 
     @Column(
             name = "amount",
-            nullable = false
+            nullable = false,
+            precision = 2
     )
     private Double amount;
 

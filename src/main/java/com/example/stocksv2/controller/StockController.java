@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,12 +38,14 @@ public class StockController {
                 Page<Stock> stockList = stockServiceImplementation.getAllStocks(page);
                 return new ResponseEntity<>(stockList, HttpStatus.OK);
             } catch (Exception exception){
+                log.error("Error getting stocks!");
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
 
     }
 
     @GetMapping(path = "{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<Optional<Stock>> getStockById(@PathVariable (value = "id") Long id) {
        try {
            log.info("Attempting to get stock with id " + id);
@@ -54,6 +57,7 @@ public class StockController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('stock:write')")
     public ResponseEntity<List<Stock>> createStock(@RequestBody StockDTO stockDTO) {
         try {
             log.info("Attempting to create new stock");
@@ -65,6 +69,7 @@ public class StockController {
     }
 
     @PatchMapping(path = "{id}")
+    @PreAuthorize("hasAuthority('stock:write')")
     public ResponseEntity<List<Stock>> updateStocks(@PathVariable (name = "id") Long id, @RequestBody StockDTO stockDTO){
         try {
             log.info("Attempting to update stock with id " + id);
@@ -77,6 +82,7 @@ public class StockController {
     }
 
     @DeleteMapping(path = "{id}")
+    @PreAuthorize("hasAuthority('stock:write')")
     public ResponseEntity<Void> deleteStock(@PathVariable (name = "id") Long id){
         try {
             log.info("Attempting to delete stock with id " + id);
