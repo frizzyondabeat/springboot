@@ -140,7 +140,7 @@ class StockServiceImplementationTest {
         @Test
         void canDeleteStock(){
             Long id = 1L;
-            given(!stockRepository.existsById(id)).willReturn(false);
+            given(stockRepository.existsById(id)).willReturn(true);
             underTest.deleteStock(id);
             verify(stockRepository).deleteById(id);
         }
@@ -148,7 +148,7 @@ class StockServiceImplementationTest {
         @Test
         void willThrowExceptionWhenDeletingStock(){
             Long id = 1L;
-            given(!stockRepository.existsById(id)).willReturn(true);
+            given(!stockRepository.existsById(id)).willReturn(false);
             assertThrows(
                     ApiNotFoundException.class,
                     () -> underTest.deleteStock(id),

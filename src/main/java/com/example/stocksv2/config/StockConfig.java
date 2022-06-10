@@ -1,4 +1,4 @@
-package com.example.stocksv2.configuration;
+package com.example.stocksv2.config;
 
 import com.example.stocksv2.model.Stock;
 import com.example.stocksv2.repository.StockRepository;

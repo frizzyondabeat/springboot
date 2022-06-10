@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Stock {
     @Id
     @SequenceGenerator(
